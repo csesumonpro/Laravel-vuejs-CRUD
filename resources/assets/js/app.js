@@ -21,12 +21,14 @@ const app = new Vue({
     el: '#app',
     data:{
         products:[],
+        product_edit:{},
         product:{
             name:'',
             desc:'',
             price:'',
         },
         errors:[],
+        edit_false:true
     },
     methods:{
         add_product(){
@@ -35,7 +37,14 @@ const app = new Vue({
                 desc:this.product.desc,
                 price:this.product.price,
             })
-            .then(this.get_product())
+                .then(response=>{
+                    this.get_product()
+                    // console.log(response)
+                    this.product.name = '';
+                    this.product.desc = '';
+                    this.product.price = '';
+                })
+
         },
         get_product(){
             axios.get('get-product')
@@ -46,8 +55,17 @@ const app = new Vue({
             .then(response=>this.products.splice(index,1))
 
         },
-        edit_product(product){
-            alert('OK');
+        edit_product(id){
+            this.edit_false = false
+           // this.product_edit = product;
+            axios.get('edit-product/'+id)
+            .then(response=>{
+                var post =  response.data;
+                this.product.name = post.name;
+                this.product.desc = post.desc;
+                this.product.price = post.price;
+            })
+
         }
     },
     created(){

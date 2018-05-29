@@ -13897,37 +13897,56 @@ var app = new Vue({
     el: '#app',
     data: {
         products: [],
+        product_edit: {},
         product: {
             name: '',
             desc: '',
             price: ''
         },
-        errors: []
+        errors: [],
+        edit_false: true
     },
     methods: {
         add_product: function add_product() {
+            var _this = this;
+
             axios.post('save-post', {
                 name: this.product.name,
                 desc: this.product.desc,
                 price: this.product.price
-            }).then(this.get_product());
+            }).then(function (response) {
+                _this.get_product();
+                // console.log(response)
+                _this.product.name = '';
+                _this.product.desc = '';
+                _this.product.price = '';
+            });
         },
         get_product: function get_product() {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('get-product').then(function (response) {
-                return _this.products = response.data;
+                return _this2.products = response.data;
             });
         },
         delete_product: function delete_product(id, index) {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('del-product/' + id).then(function (response) {
-                return _this2.products.splice(index, 1);
+                return _this3.products.splice(index, 1);
             });
         },
-        edit_product: function edit_product(product) {
-            alert('OK');
+        edit_product: function edit_product(id) {
+            var _this4 = this;
+
+            this.edit_false = false;
+            // this.product_edit = product;
+            axios.get('edit-product/' + id).then(function (response) {
+                var post = response.data;
+                _this4.product.name = post.name;
+                _this4.product.desc = post.desc;
+                _this4.product.price = post.price;
+            });
         }
     },
     created: function created() {

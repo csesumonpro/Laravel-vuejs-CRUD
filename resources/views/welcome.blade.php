@@ -28,7 +28,8 @@
                         <label for="name">Price</label>
                         <input v-model="product.price" type="number" class="form-control" name="price" id="price" placeholder="Enter Product PRice">
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Product</button>
+                    <button type="submit" class="btn btn-primary" v-if="edit_false">Add Product</button>
+                    <button type="submit" class="btn btn-primary" v-else>Update Product</button>
                 </form>
             </div>
             <div class="col-md-6">
@@ -49,7 +50,8 @@
                         <td>@{{ product.desc }}</td>
                         <td>$@{{product.price}}</td>
                         <td>
-                            <button @click.prevent = "edit_product(product)" ><i class="fa fa-pencil-square-o"></i></button>
+                            {{--<a href="{{url('/edit-product/')}} ">Edit </a>--}}
+                            <button @click.prevent = "edit_product(product.id)" ><i class="fa fa-pencil-square-o"></i></button>
                             <button @click.prevent = "delete_product(product.id,index)"><i class="fa fa-trash"></i></button>
 
                         </td>

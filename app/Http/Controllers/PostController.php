@@ -30,4 +30,9 @@ class PostController extends Controller
        $product->delete();
        return response()->json($product);
    }
+   public function edit_product($id){
+       $product_edit = Post::where('id',$id)->first();
+       return response()->json($product_edit);
+
+   }
 }
