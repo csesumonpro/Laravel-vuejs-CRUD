@@ -30,15 +30,27 @@ const app = new Vue({
     },
     methods:{
         add_product(){
-
             axios.post('save-post',{
                 name:this.product.name,
                 desc:this.product.desc,
                 price:this.product.price,
-
             })
+            .then(this.get_product())
+        },
+        get_product(){
+            axios.get('get-product')
+            .then(response=>this.products = response.data)
+        },
+        delete_product(id,index){
+            axios.get('del-product/'+id)
+            .then(response=>this.products.splice(index,1))
 
-
+        },
+        edit_product(product){
+            alert('OK');
         }
+    },
+    created(){
+        this.get_product();
     }
 });

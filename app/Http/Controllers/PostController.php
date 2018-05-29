@@ -21,4 +21,13 @@ class PostController extends Controller
        return response()->json($post);
 
    }
+   public function get_product(){
+       $product = Post::orderBy('id','desc')->get();
+       return response()->json($product);
+   }
+   public function del_product($id){
+       $product = Post::find($id);
+       $product->delete();
+       return response()->json($product);
+   }
 }

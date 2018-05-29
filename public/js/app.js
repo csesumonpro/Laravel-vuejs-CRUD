@@ -13906,14 +13906,32 @@ var app = new Vue({
     },
     methods: {
         add_product: function add_product() {
-
             axios.post('save-post', {
                 name: this.product.name,
                 desc: this.product.desc,
                 price: this.product.price
+            }).then(this.get_product());
+        },
+        get_product: function get_product() {
+            var _this = this;
 
+            axios.get('get-product').then(function (response) {
+                return _this.products = response.data;
             });
+        },
+        delete_product: function delete_product(id, index) {
+            var _this2 = this;
+
+            axios.get('del-product/' + id).then(function (response) {
+                return _this2.products.splice(index, 1);
+            });
+        },
+        edit_product: function edit_product(product) {
+            alert('OK');
         }
+    },
+    created: function created() {
+        this.get_product();
     }
 });
 
