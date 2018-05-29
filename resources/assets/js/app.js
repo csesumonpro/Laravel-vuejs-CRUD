@@ -28,7 +28,7 @@ const app = new Vue({
             desc:'',
             price:'',
         },
-        errors:[],
+        errors:'',
         edit_true:true
     },
     methods:{
@@ -45,6 +45,11 @@ const app = new Vue({
                     this.product.desc = '';
                     this.product.price = '';
                 })
+                .catch(error=>{
+                    if(error.response.status==422){
+                        this.errors = error.response.data.errors
+                    }
+                })
 
         },
         get_product(){
@@ -58,7 +63,6 @@ const app = new Vue({
         },
         edit_product(id){
             this.edit_true = false
-           // this.product_edit = product;
             axios.get('edit-product/'+id)
             .then(response=>{
                 var post =  response.data;
@@ -70,6 +74,7 @@ const app = new Vue({
 
         },
         update_product(){
+            this.edit_true = true
             axios.post('update-post',{
                 id:this.product.id,
                 name:this.product.name,
@@ -82,6 +87,11 @@ const app = new Vue({
                     this.product.name = '';
                     this.product.desc = '';
                     this.product.price = '';
+                })
+                .catch(error=>{
+                    if(error.response.status==422){
+                        this.errors = error.response.data.errors
+                    }
                 })
 
         },

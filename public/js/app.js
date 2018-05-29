@@ -13904,7 +13904,7 @@ var app = new Vue({
             desc: '',
             price: ''
         },
-        errors: [],
+        errors: '',
         edit_true: true
     },
     methods: {
@@ -13921,6 +13921,10 @@ var app = new Vue({
                 _this.product.name = '';
                 _this.product.desc = '';
                 _this.product.price = '';
+            }).catch(function (error) {
+                if (error.response.status == 422) {
+                    _this.errors = error.response.data.errors;
+                }
             });
         },
         get_product: function get_product() {
@@ -13941,7 +13945,6 @@ var app = new Vue({
             var _this4 = this;
 
             this.edit_true = false;
-            // this.product_edit = product;
             axios.get('edit-product/' + id).then(function (response) {
                 var post = response.data;
                 _this4.product.id = post.id;
@@ -13953,6 +13956,7 @@ var app = new Vue({
         update_product: function update_product() {
             var _this5 = this;
 
+            this.edit_true = true;
             axios.post('update-post', {
                 id: this.product.id,
                 name: this.product.name,
@@ -13964,6 +13968,10 @@ var app = new Vue({
                 _this5.product.name = '';
                 _this5.product.desc = '';
                 _this5.product.price = '';
+            }).catch(function (error) {
+                if (error.response.status == 422) {
+                    _this5.errors = error.response.data.errors;
+                }
             });
         }
     },

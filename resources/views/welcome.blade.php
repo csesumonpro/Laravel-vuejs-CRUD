@@ -20,17 +20,21 @@
                         <label for="name">Name</label>
                         <input type="hidden" name="id" v-model="product.id">
                         <input v-model="product.name" type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name">
+                        <span class="alert-danger" v-if="errors.name">@{{ errors.name }}</span>
                     </div>
                     <div class="form-group">
                         <label for="name">Descriptiom</label>
                         <input v-model="product.desc" type="text" class="form-control" name="desc" id="desc" placeholder="Enter Product Description">
+                        <span class="alert-danger" v-if="errors.desc">@{{ errors.desc }}</span>
                     </div>
                     <div class="form-group">
                         <label for="name">Price</label>
                         <input v-model="product.price" type="number" class="form-control" name="price" id="price" placeholder="Enter Product PRice">
+                        <span class="alert-danger" v-if="errors.price">@{{ errors.price }}</span>
                     </div>
                     <button @click.prevent = "add_product()" type="submit" class="btn btn-primary" v-if="edit_true">Add Product</button>
                     <button  @click.prevent = "update_product()" type="submit" class="btn btn-primary" v-else>Update Product</button>
+
                 </form>
             </div>
             <div class="col-md-6">
@@ -67,3 +71,7 @@
     <script src="{{asset('/js/app.js')}}"></script>
     </body>
 </html>
+
+<ul>
+    <li></li>
+</ul>
