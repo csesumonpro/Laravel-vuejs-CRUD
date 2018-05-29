@@ -13899,6 +13899,7 @@ var app = new Vue({
         products: [],
         product_edit: {},
         product: {
+            id: '',
             name: '',
             desc: '',
             price: ''
@@ -13946,6 +13947,22 @@ var app = new Vue({
                 _this4.product.name = post.name;
                 _this4.product.desc = post.desc;
                 _this4.product.price = post.price;
+            });
+        },
+        update_product: function update_product() {
+            var _this5 = this;
+
+            axios.post('update-post', {
+                id: this.product.id,
+                name: this.product.name,
+                desc: this.product.desc,
+                price: this.product.price
+            }).then(function (response) {
+                _this5.get_product();
+                // console.log(response)
+                _this5.product.name = '';
+                _this5.product.desc = '';
+                _this5.product.price = '';
             });
         }
     },

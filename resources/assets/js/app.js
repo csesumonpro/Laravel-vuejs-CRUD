@@ -23,6 +23,7 @@ const app = new Vue({
         products:[],
         product_edit:{},
         product:{
+            id:'',
             name:'',
             desc:'',
             price:'',
@@ -66,7 +67,23 @@ const app = new Vue({
                 this.product.price = post.price;
             })
 
-        }
+        },
+        update_product(){
+            axios.post('update-post',{
+                id:this.product.id,
+                name:this.product.name,
+                desc:this.product.desc,
+                price:this.product.price,
+            })
+                .then(response=>{
+                    this.get_product()
+                    // console.log(response)
+                    this.product.name = '';
+                    this.product.desc = '';
+                    this.product.price = '';
+                })
+
+        },
     },
     created(){
         this.get_product();

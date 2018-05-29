@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::post('/save-post','PostController@save_post');
+Route::post('/update-post','PostController@update_post');
 Route::get('/get-product','PostController@get_product');
 Route::get('/del-product/{id}','PostController@del_product');
 Route::get('/edit-product/{id}','PostController@edit_product');

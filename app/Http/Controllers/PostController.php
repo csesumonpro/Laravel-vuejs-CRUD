@@ -35,4 +35,20 @@ class PostController extends Controller
        return response()->json($product_edit);
 
    }
+
+   public function update_post(Request $request){
+       $request->validate([
+           'name'=>'required|min:5|max:255',
+           'desc'=>'required|min:5|max:1000',
+           'price'=>'required|min:1',
+       ]);
+       $post = Post::where('id',$request->id)->first();
+       $post->name = $request->name;
+       $post->desc = $request->desc;
+       $post->price = $request->price;
+       $post->save();
+       return response()->json($post);
+
+   }
+
 }
