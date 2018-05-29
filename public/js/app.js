@@ -13905,7 +13905,7 @@ var app = new Vue({
             price: ''
         },
         errors: [],
-        edit_false: true
+        edit_true: true
     },
     methods: {
         add_product: function add_product() {
@@ -13940,10 +13940,11 @@ var app = new Vue({
         edit_product: function edit_product(id) {
             var _this4 = this;
 
-            this.edit_false = false;
+            this.edit_true = false;
             // this.product_edit = product;
             axios.get('edit-product/' + id).then(function (response) {
                 var post = response.data;
+                _this4.product.id = post.id;
                 _this4.product.name = post.name;
                 _this4.product.desc = post.desc;
                 _this4.product.price = post.price;

@@ -15,7 +15,7 @@
         <h2  class="text-center text-info">Vue Js Laravel CRUD</h2><hr/>
         <div class="row">
             <div class="col-md-6">
-                <form action="" method="post" @submit.prevent = "add_product()">
+                <form action="" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="hidden" name="id" v-model="product.id">
@@ -29,8 +29,8 @@
                         <label for="name">Price</label>
                         <input v-model="product.price" type="number" class="form-control" name="price" id="price" placeholder="Enter Product PRice">
                     </div>
-                    <button type="submit" class="btn btn-primary" v-if="edit_false">Add Product</button>
-                    <button @submit.prevent = "update_product()" type="submit" class="btn btn-primary" v-else>Update Product</button>
+                    <button @click.prevent = "add_product()" type="submit" class="btn btn-primary" v-if="edit_true">Add Product</button>
+                    <button  @click.prevent = "update_product()" type="submit" class="btn btn-primary" v-else>Update Product</button>
                 </form>
             </div>
             <div class="col-md-6">
@@ -45,8 +45,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(product,index) in products">
-                        <td>@{{ product.id }}</td>
+
+                    <tr v-for="(product,key,index) in products">
+
+                        <td>@{{ key+1 }}</td>
                         <td>@{{ product.name }}</td>
                         <td>@{{ product.desc }}</td>
                         <td>$@{{product.price}}</td>
