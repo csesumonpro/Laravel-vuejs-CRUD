@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::post('/save-post','PostController@save_post');

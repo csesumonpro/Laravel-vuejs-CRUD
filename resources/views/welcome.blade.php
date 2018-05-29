@@ -5,6 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title>Laravel</title>
     </head>
     <body>
@@ -12,18 +14,18 @@
         <h2  class="text-center">Vue Js Laravel CRUD</h2><hr/>
         <div class="row">
             <div class="col-md-6">
-                <form action="" method="post" role="form">
+                <form action="" method="post" @submit.prevent = "add_product()">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name">
+                        <input v-model="product.name" type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name">
                     </div>
                     <div class="form-group">
                         <label for="name">Descriptiom</label>
-                        <input type="text" class="form-control" name="desc" id="desc" placeholder="Enter Product Description">
+                        <input v-model="product.desc" type="text" class="form-control" name="desc" id="desc" placeholder="Enter Product Description">
                     </div>
                     <div class="form-group">
                         <label for="name">Price</label>
-                        <input type="number" class="form-control" name="price" id="price" placeholder="Enter Product PRice">
+                        <input v-model="product.price" type="number" class="form-control" name="price" id="price" placeholder="Enter Product PRice">
                     </div>
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </form>
@@ -50,5 +52,6 @@
             </div>
         </div>
     </div>
+    <script src="{{asset('/js/app.js')}}"></script>
     </body>
 </html>

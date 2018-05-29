@@ -18,5 +18,27 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data:{
+        products:[],
+        product:{
+            name:'',
+            desc:'',
+            price:'',
+        },
+        errors:[],
+    },
+    methods:{
+        add_product(){
+
+            axios.post('save-post',{
+                name:this.product.name,
+                desc:this.product.desc,
+                price:this.product.price,
+
+            })
+
+
+        }
+    }
 });
